@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>APONA</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Option 1: Include in HTML
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      .w-90 {
+        width: 90%;
+      }
+      .sidebar {
+        display: none;
+      }
+
+      .togglerBtn {
+        display: block;
+      }
+      .fs-6 {
+        font-size: 10px !important;
+      }
+      .no-shrink {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      .nav-pills .nav-link.active,
+      .nav-pills .show > .nav-link {
+        background: rgb(30, 45, 96);
+        border-radius: 20px;
+        padding: 4px 20px;
+      }
+
+      .nav-link {
+        padding: 4px 20px;
+        color: black;
+      }
+
+      @media (max-width: 576px) {
+        .nav-pills .nav-link.active,
+        .nav-link {
+          padding: 4px 5px;
+          font-size: 12px;
+        }
+      }
+      @media (min-width: 576px) {
+        .w-sm-85 {
+          width: 85%;
+        }
+        .fs-6 {
+          font-size: 1rem !important;
+        }
+      }
+      @media (max-width: 768px) {
+        .first-col {
+          margin-left: 5px;
+        }
+      }
+      @media (min-width: 768px) {
+        .w-md-75 {
+          width: 75%;
+        }
+
+        .sidebar {
+          display: block;
+        }
+
+        .togglerBtn {
+          display: none;
+        }
+        .last-col {
+          width: 170px;
+        }
+      }
+      @media (min-width: 992px) {
+        .w-lg-50 {
+          width: 50%;
+        }
+      }
+      @media (min-width: 1224px) {
+        .accordionHeight {
+          height: 60vh;
+        }
+      }
+
+      .accordion-button::before {
+        content: url(/img/rightArrow.png); /* Unicode for right-pointing black arrow */
+        font-size: 1.25rem;
+        color: #6c757d;
+        margin-right: 0.5rem; /* Add some space */
+        transition: transform 0.3s ease-in-out; /* Add transition effect */
+      }
+
+      /* Rotate the arrow icon when accordion is expanded */
+      .accordion-button[aria-expanded="true"]::before {
+        transform: rotate(90deg);
+      }
+      .accordion-button::after {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid" style="height: 100vh; overflow: hidden">
+      <div class="row">
+        <div
+          class="sidebar col-md-3 p-3 px-4 text-light"
+          style="background: rgb(30, 45, 96); height: 100vh"
+        >
+          <div class="row py-2 pb-4">
+            <div class="col text-center">
+              <img src="/img/logoWhite.png" alt="logo" />
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-pie-chart-fill me-2"></i>
+              Dashboard
+            </div>
+          </div>
+          <div class="row mt-2 bg-light rounded" style="color: rgb(30, 45, 96)">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="fa-solid fa-user-group me-2"></i>
+              Groups
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="fa-solid fa-user me-2"></i>
+              Profile
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              SCA
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              SAST
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              Dependency Mapping
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              Supply Chain defense
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-9 p-3" style="height: 100vh; overflow: auto">
+          <div class="row">
+            <div
+              class="col-12 col-sm-4 col-lg-4 d-flex align-items-center"
+              style="gap: 5px"
+            >
+              <!-- Toggler start -->
+              <button
+                class="btn togglerBtn text-light"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling"
+                style="background: rgb(30, 45, 96)"
+              >
+                <i class="fa-solid fa-bars"></i>
+              </button>
+
+              <div
+                class="offcanvas offcanvas-start text-light"
+                data-bs-scroll="true"
+                data-bs-backdrop="false"
+                tabindex="-1"
+                id="offcanvasScrolling"
+                aria-labelledby="offcanvasScrollingLabel"
+                style="background: rgb(30, 45, 96)"
+              >
+                <div class="offcanvas-header">
+                  <div class="offcanvas-title" id="offcanvasScrollingLabel">
+                    <img src="/img/logoWhite.png" alt="" />
+                  </div>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                    style="background: url(/img/cross.png)"
+                  ></button>
+                </div>
+                <div class="offcanvas-body">
+                  <!-- Mobile sidebar content start -->
+                  <div class="row">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-pie-chart-fill me-2"></i>
+                      Dashboard
+                    </div>
+                  </div>
+                  <div
+                    class="row mt-2 bg-light rounded"
+                    style="color: rgb(30, 45, 96)"
+                  >
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="fa-solid fa-user-group me-2"></i>
+                      Groups
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="fa-solid fa-user me-2"></i>
+                      Profile
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      SCA
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      SAST
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      Dependency Mapping
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      Supply Chain defense
+                    </div>
+                  </div>
+                  <!-- Mobile sidebar content end -->
+                </div>
+              </div>
+              <!-- Toggler end -->
+              <h4 class="fw-bold">SAST</h4>
+            </div>
+            <div
+              class="col-md-8 col-lg-8 d-flex flex-wrap-reverse align-items-center justify-content-end"
+              style="gap: 20px"
+            >
+              <!-- Drop down start -->
+              <div class="btn-group ms-3">
+                <button
+                  class="btn dropdown-toggle text-light"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style="background: rgb(30, 45, 96)"
+                >
+                  Project Option
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                </ul>
+              </div>
+              <!-- Drop down end -->
+              <div class="d-flex align-items-center" style="gap: 5px">
+                <i class="fa-solid fa-bell"></i>
+                <div class="d-flex align-items-center" style="gap: 5px">
+                  <img src="/img/avatar.png" alt="avatar" />
+                  <div class="d-flex flex-column">
+                    <h5 class="fw-bold m-0">Wade Warren</h5>
+                    <p class="text-mute m-0">wade.warren@mail.com</p>
+                  </div>
+                </div>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+          </div>
+          <div class="row py-2 my-4">
+            <div class="col d-flex justify-content-between">
+              <div class="fw-bold">All Projects 10</div>
+              <!-- Drop down start -->
+              <div class="btn-group ms-3">
+                <button
+                  class="btn dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style="background: #1e2d601a"
+                >
+                  Select Project
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                </ul>
+              </div>
+              <!-- Drop down end -->
+            </div>
+          </div>
+          <div class="row py-2 my-2">
+            <div class="col-md-6 p-3">
+              <div class="row fw-bold ms-3">SAST Vulnerability</div>
+              <div class="row d-flex justify-content-center">
+                <img
+                  src="/img/sastVulnerability.png"
+                  alt="sast chart"
+                  style="width: 300px"
+                />
+              </div>
+              <div class="row mt-0">
+                <div
+                  class="col d-flex justify-content-center"
+                  style="gap: 10px"
+                >
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(203, 5, 0);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    Critical
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(224, 61, 4);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    High
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(249, 160, 8);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    Medium
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(248, 224, 30);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    Low
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(203, 202, 207);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    None
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 p-3">
+              <div class="row fw-bold ms-3">Remediated Vulnerabilities</div>
+              <div class="row mt-5 mb-5 d-flex justify-content-center">
+                <img
+                  src="/img/remeditVulnerability.png"
+                  alt="sast chart"
+                  style="width: 200px"
+                />
+              </div>
+              <div class="row mt-0">
+                <div
+                  class="col d-flex justify-content-center"
+                  style="gap: 10px"
+                >
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(203, 5, 0);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    Critical
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(224, 61, 4);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    High
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(249, 160, 8);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    Medium
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(248, 224, 30);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    Low
+                  </div>
+                  <div class="d-flex align-items-center" style="gap: 5px">
+                    <div
+                      style="
+                        height: 12px;
+                        width: 12px;
+                        background: rgb(203, 202, 207);
+                        border-radius: 50%;
+                      "
+                    ></div>
+                    None
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project details start -->
+          <div class="row py-2 mt-4">
+            <div class="row">
+              <div
+                class="col py-0 d-flex justify-content-between"
+                style="overflow-x: auto"
+              >
+                <button
+                  class="btn d-flex align-items-center no-shrink border border-1"
+                  style="gap: 30px"
+                >
+                  Project 1
+                  <img
+                    src="/img/rightArrow.png"
+                    alt="arrow"
+                    style="width: 10px; height: 10px"
+                  />
+                </button>
+                <button class="btn border border-1">Execute</button>
+                <div class="d-flex align-items-center" style="gap: 5px">
+                  <img src="/img/filter.png" alt="filter" />
+                  <img src="/img/brush.png" alt="brsuh" />
+                  <img src="/img/save.png" alt="save" />
+                  <img src="/img/flag.png" alt="flag" />
+                </div>
+                <div
+                  style="
+                    height: 60px;
+                    width: 2px;
+                    background: rgba(128, 128, 128, 0.511);
+                  "
+                ></div>
+                <div class="d-flex align-items-center" style="gap: 5px">
+                  <img src="/img/flag1.png" alt="flag" />
+                  <img src="/img/flag2.png" alt="flag" />
+                  <img src="/img/flag3.png" alt="flag" />
+                  <img src="/img/flag4.png" alt="flag" />
+                  <img src="/img/flag5.png" alt="flag" />
+                </div>
+                <div
+                  style="
+                    height: 60px;
+                    width: 2px;
+                    background: rgba(128, 128, 128, 0.511);
+                  "
+                ></div>
+                <div class="d-flex align-items-center" style="gap: 10px">
+                  <img src="/img/save.png" alt="save" />
+                  <img src="/img/memory.png" alt="memory" />
+                </div>
+              </div>
+            </div>
+            <div class="row-py-2 mt-3">
+              <div
+                class="col d-flex justify-content-between"
+                style="gap: 10px; overflow-x: auto"
+              >
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  File Path <img src="/img/filter2.png" alt="filter2" />
+                </div>
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  Line <img src="/img/filter2.png" alt="filter2" />
+                </div>
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  Source <img src="/img/filter2.png" alt="filter2" />
+                </div>
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  Activity guide <img src="/img/filter2.png" alt="filter2" />
+                </div>
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  Defect Description
+                  <img src="/img/filter2.png" alt="filter2" />
+                </div>
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  Trace info <img src="/img/filter2.png" alt="filter2" />
+                </div>
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  Deets Status <img src="/img/filter2.png" alt="filter2" />
+                </div>
+                <div
+                  class="d-flex align-items-center no-shrink"
+                  style="gap: 10px"
+                >
+                  Comment <img src="/img/filter2.png" alt="filter2" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr color="mute" />
+          <div>
+            <img src="/img/bottomArrow.png" alt="arrow" width="10px" />
+            <img src="/img/redFlag.png" alt="critical flag" />
+            Critical &lpar;24&rpar;
+          </div>
+          <hr color="mute" />
+          <div>
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            &lbrack;sp&rbrack; Cross-Site Request Forgery &lpar;CRF&rpar;
+            &lpar;3&rpar;
+          </div>
+          <hr color="mute" />
+          <div>
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            &lbrack;sp&rbrack; Cross Site Scripting &lpar;XSS&rpar;
+            &lpar;13&rpar;
+          </div>
+          <hr color="mute" />
+          <div>
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            &lbrack;sp&rbrack; Information Leak through Error Message
+            &lpar;1&rpar;
+          </div>
+          <hr color="mute" />
+          <div>
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            &lbrack;sp&rbrack; Leftover Debug Code &lpar;5&rpar;
+          </div>
+          <hr color="mute" />
+          <div>
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            &lbrack;sp&rbrack; Unrestricted Upload of file with Dangerous Type
+            &lpar;1&rpar;
+          </div>
+          <hr color="mute" />
+          <div>
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            &lbrack;sp&rbrack; Use of Insufficiently Random Value &lpar;1&rpar;
+          </div>
+          <hr color="mute" />
+          <div class="ps-5">
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            <img src="/img/yellowFlag.png" alt="High flag" />
+            Rec,High &lpar;17&rpar;
+          </div>
+          <hr color="mute" />
+          <div class="ps-5">
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            <img src="/img/greenFlag.png" alt="Middle flag" />
+            Rec,Middle &lpar;18&rpar;
+          </div>
+          <hr color="mute" />
+          <div class="ps-5">
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            <img src="/img/blueFlag.png" alt="Low flag" />
+            Rec,Low &lpar;1&rpar;
+          </div>
+          <hr color="mute" />
+          <div class="ps-5">
+            <img src="/img/rightArrow.png" alt="arrow" width="10px" />
+            <img src="/img/transparentFlag.png" alt="Info flag" />
+            Info.&lpar;1202&rpar;
+          </div>
+          <hr color="mute" />
+
+          <!-- Project details end -->
+          <div class="row-py-2 mt-2">
+            <div class="col">
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="pills-home-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-ruleDescription"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-ruleDescription"
+                    aria-selected="true"
+                  >
+                    Rule Description
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-profile-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-ruleExample"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-ruleExample"
+                    aria-selected="false"
+                  >
+                    Rule Example
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-contact-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-ruleStandard"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-ruleStandard"
+                    aria-selected="false"
+                  >
+                    Rule Standard
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-disabled-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-traceInfo"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-traceInfo"
+                    aria-selected="false"
+                    disabled
+                  >
+                    Trace Info
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  style="gap: 15px"
+                  id="pills-ruleDescription"
+                  role="tabpanel"
+                  aria-labelledby="pills-ruleDescription-tab"
+                  tabindex="0"
+                >
+                  <div class="fw-bold fs-5 mt-4">Critical</div>
+                  <div class="py-2 mt-2 px-4 border border-1 rounded">
+                    <p>
+                      Do not expose internal data and system information to the
+                      outside.
+                    </p>
+                    <p>
+                      Internal data system information help attackers to
+                      determine attack targets. For example, when a JRE version
+                      is exposed, an attacker can decide what to attack based on
+                      the vulnerabilities that exist in that version.
+                    </p>
+                    <p>
+                      After development, delete all code that outputs internal
+                      data system information to the outside. if you need to
+                      leave a note about it, do not print it out, but write it
+                      to a log file on the server.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  style="gap: 15px"
+                  id="pills-ruleExample"
+                  role="tabpanel"
+                  aria-labelledby="pills-ruleExample-tab"
+                  tabindex="0"
+                >
+                  <div class="fw-bold fs-5 mt-4">Critical</div>
+                  <div class="row d-flex justify-content-evenly">
+                    <div class="col-5 mt-2 py-2 px-4 border border-1 rounded">
+                      <div class="fw-bold text-center">Bad Code</div>
+                      <div>
+                        try &lbrace; <br />// ... <br />&rbrace; catch
+                        &lpar;Exception&rpar; &lbrace; <br />
+                        e.printStack Trace &lpar; &rpar;&semi; <br />
+                        &lpar;
+                      </div>
+                    </div>
+                    <div class="col-5 mt-2 py-2 px-4 border border-1 rounded">
+                      <div class="fw-bold text-center">Good Code</div>
+                      <div>
+                        try &lbrace; <br />// ... <br />&rbrace; catch
+                        &lpar;Exception&rpar; &lbrace; <br />
+                        e.printStack Trace &lpar; &rpar;&semi; <br />
+                        &lpar;
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-ruleStandard"
+                  role="tabpanel"
+                  aria-labelledby="pills-ruleStandard-tab"
+                  tabindex="0"
+                >
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-nowrap">
+                            Related standard
+                            <img
+                              src="/img/filter2.png"
+                              alt="table filter"
+                              height="10px"
+                            />
+                          </th>
+                          <th class="text-nowrap">
+                            No
+                            <img src="/img/filter2.png" alt="table filter" />
+                          </th>
+                          <th class="text-nowrap">
+                            Description
+                            <img src="/img/filter2.png" alt="table filter" />
+                          </th>
+                          <th class="text-nowrap">
+                            References
+                            <img src="/img/filter2.png" alt="table filter" />
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>CWE</td>
+                          <td>200</td>
+                          <td>Exposure of Sensitive Inf...</td>
+                          <td>https://cwe.mitre. org/data/de...</td>
+                        </tr>
+                        <tr>
+                          <td>CWE Top 25 2020</td>
+                          <td>7</td>
+                          <td>Exposure of Sensitive Inf...</td>
+                          <td>https://cwe.mitre. org/data/de...</td>
+                        </tr>
+                        <tr>
+                          <td>CWE</td>
+                          <td>200</td>
+                          <td>Exposure of Sensitive Inf...</td>
+                          <td>https://cwe.mitre. org/data/de...</td>
+                        </tr>
+                        <tr>
+                          <td>CWE Top 25 2020</td>
+                          <td>7</td>
+                          <td>Exposure of Sensitive Inf...</td>
+                          <td>https://cwe.mitre. org/data/de...</td>
+                        </tr>
+                        <tr>
+                          <td>CWE</td>
+                          <td>200</td>
+                          <td>Exposure of Sensitive Inf...</td>
+                          <td>https://cwe.mitre. org/data/de...</td>
+                        </tr>
+                        <tr>
+                          <td>CWE Top 25 2020</td>
+                          <td>7</td>
+                          <td>Exposure of Sensitive Inf...</td>
+                          <td>https://cwe.mitre. org/data/de...</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-traceInfo"
+                  role="tabpanel"
+                  aria-labelledby="pills-traceInfo-tab"
+                  tabindex="0"
+                >
+                  info
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

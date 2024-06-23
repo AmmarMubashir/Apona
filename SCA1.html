@@ -1,0 +1,4066 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>APONA</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Option 1: Include in HTML
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      .w-90 {
+        width: 90%;
+      }
+      .sidebar {
+        display: none;
+      }
+
+      .togglerBtn {
+        display: block;
+      }
+      .fs-6 {
+        font-size: 10px !important;
+      }
+      .no-shrink {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      .nav-pills {
+        font: 10px;
+      }
+
+      .nav-pills * {
+        flex-shrink: 0;
+      }
+      .nav-pills .nav-link {
+        background: transparent;
+        padding: 2px 7px;
+        border-radius: 20px;
+        color: black;
+        border: 1px solid #6c757d61;
+      }
+      .nav-pills .nav-link.active,
+      .nav-pills .show > .nav-link {
+        background-color: rgb(30, 45, 96);
+      }
+      .nav-pills .nav-link.active > img {
+        filter: invert(100%) brightness(400%);
+      }
+      .select-icon {
+        position: relative;
+      }
+      .select-icon::before {
+        content: "\f0b0"; /* Unicode for the FontAwesome filter icon */
+        font-family: "Font Awesome 5 Free"; /* Ensure you have FontAwesome included */
+        font-weight: 900;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+      .select-icon select {
+        padding-left: 30px; /* Adjust based on icon size */
+      }
+
+      @media (max-width: 576px) {
+        .overview > div {
+          font-size: 8px !important;
+        }
+        .overview > img {
+          height: 30px;
+        }
+        .nav-pills {
+          font-size: 8px;
+        }
+      }
+      @media (min-width: 576px) {
+        .w-sm-85 {
+          width: 85%;
+        }
+        .fs-6 {
+          font-size: 1rem !important;
+        }
+      }
+      @media (max-width: 768px) {
+        .first-col {
+          margin-left: 5px;
+        }
+      }
+      @media (min-width: 768px) {
+        .w-md-75 {
+          width: 75%;
+        }
+
+        .sidebar {
+          display: block;
+        }
+
+        .togglerBtn {
+          display: none;
+        }
+        .last-col {
+          width: 170px;
+        }
+      }
+      @media (min-width: 992px) {
+        .w-lg-50 {
+          width: 50%;
+        }
+      }
+      @media (min-width: 1224px) {
+        .accordionHeight {
+          height: 60vh;
+        }
+      }
+
+      .accordion-button::before {
+        content: url(/img/rightArrow.png); /* Unicode for right-pointing black arrow */
+        font-size: 1.25rem;
+        color: #6c757d;
+        margin-right: 0.5rem; /* Add some space */
+        transition: transform 0.3s ease-in-out; /* Add transition effect */
+      }
+
+      /* Rotate the arrow icon when accordion is expanded */
+      .accordion-button[aria-expanded="true"]::before {
+        transform: rotate(90deg);
+      }
+      .accordion-button::after {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid" style="height: 100vh; overflow: hidden">
+      <div class="row">
+        <div
+          class="sidebar col-md-3 p-3 px-4 text-light"
+          style="background: rgb(30, 45, 96); height: 100vh"
+        >
+          <div class="row py-2 pb-4">
+            <div class="col text-center">
+              <img src="/img/logoWhite.png" alt="logo" />
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-pie-chart-fill me-2"></i>
+              Dashboard
+            </div>
+          </div>
+          <div class="row mt-2 bg-light rounded" style="color: rgb(30, 45, 96)">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="fa-solid fa-user-group me-2"></i>
+              Groups
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="fa-solid fa-user me-2"></i>
+              Profile
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              SCA
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              SAST
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              Dependency Mapping
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div
+              class="col py-2 d-flex align-items-center fs-5"
+              style="gap: 8px"
+            >
+              <i class="ri-shield-check-fill me-2"></i>
+              Supply Chain defense
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-9 p-3" style="height: 100vh; overflow: auto">
+          <div class="row">
+            <div
+              class="col-12 col-sm-4 col-lg-4 d-flex align-items-center"
+              style="gap: 5px"
+            >
+              <!-- Toggler start -->
+              <button
+                class="btn togglerBtn text-light"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling"
+                style="background: rgb(30, 45, 96)"
+              >
+                <i class="fa-solid fa-bars"></i>
+              </button>
+
+              <div
+                class="offcanvas offcanvas-start text-light"
+                data-bs-scroll="true"
+                data-bs-backdrop="false"
+                tabindex="-1"
+                id="offcanvasScrolling"
+                aria-labelledby="offcanvasScrollingLabel"
+                style="background: rgb(30, 45, 96)"
+              >
+                <div class="offcanvas-header">
+                  <div class="offcanvas-title" id="offcanvasScrollingLabel">
+                    <img src="/img/logoWhite.png" alt="" />
+                  </div>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                    style="background: url(/img/cross.png)"
+                  ></button>
+                </div>
+                <div class="offcanvas-body">
+                  <!-- Mobile sidebar content start -->
+                  <div class="row">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-pie-chart-fill me-2"></i>
+                      Dashboard
+                    </div>
+                  </div>
+                  <div
+                    class="row mt-2 bg-light rounded"
+                    style="color: rgb(30, 45, 96)"
+                  >
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="fa-solid fa-user-group me-2"></i>
+                      Groups
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="fa-solid fa-user me-2"></i>
+                      Profile
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      SCA
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      SAST
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      Dependency Mapping
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div
+                      class="col py-2 d-flex align-items-center fs-5"
+                      style="gap: 8px"
+                    >
+                      <i class="ri-shield-check-fill me-2"></i>
+                      Supply Chain defense
+                    </div>
+                  </div>
+                  <!-- Mobile sidebar content end -->
+                </div>
+              </div>
+              <!-- Toggler end -->
+              <h4 class="fw-bold">Hello, User</h4>
+              <!-- Drop down start -->
+              <div class="btn-group ms-3">
+                <button
+                  class="btn dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style="background: rgb(233, 234, 240)"
+                >
+                  Project 1
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                </ul>
+              </div>
+              <!-- Drop down end -->
+            </div>
+            <div
+              class="col-md-8 col-lg-8 d-flex flex-wrap-reverse align-items-center justify-content-end"
+              style="gap: 20px"
+            >
+              <!-- Drop down start -->
+              <div class="btn-group ms-3">
+                <button
+                  class="btn dropdown-toggle text-light"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  style="background: rgb(30, 45, 96)"
+                >
+                  Project Option
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                  <li><a class="dropdown-item" href="#">Menu item</a></li>
+                </ul>
+              </div>
+              <!-- Drop down end -->
+              <div class="d-flex align-items-center" style="gap: 5px">
+                <i class="fa-solid fa-bell"></i>
+                <div class="d-flex align-items-center" style="gap: 5px">
+                  <img src="/img/avatar.png" alt="avatar" />
+                  <div class="d-flex flex-column">
+                    <h5 class="fw-bold m-0">Wade Warren</h5>
+                    <p class="text-mute m-0">wade.warren@mail.com</p>
+                  </div>
+                </div>
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+            </div>
+          </div>
+          <div class="row py-2 mt-3">
+            <div
+              class="col d-flex flex-column gap-3 flex-sm-row justify-content-between"
+            >
+              <div class="fw-bold fs-5">Project Overview</div>
+              <div class="d-flex gap-4">
+                <div class="d-flex">
+                  <div
+                    class="py-1 px-2 rounded-start text-nowrap"
+                    style="background: rgb(224, 226, 238)"
+                  >
+                    CVSS V2
+                  </div>
+                  <div
+                    class="py-1 px-2 text-light text-nowrap"
+                    style="background: rgb(30, 45, 96)"
+                  >
+                    CVSS V3
+                  </div>
+                  <div
+                    class="py-1 px-2 rounded-end text-nowrap"
+                    style="background: rgb(224, 226, 238)"
+                  >
+                    LPP
+                  </div>
+                </div>
+
+                <select
+                  class="form-select text-dark"
+                  aria-label=" label select example"
+                  style="background-color: rgb(224, 226, 238)"
+                >
+                  <option value="1">Project 1</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row py-2 d-flex gap-2">
+            <div class="col d-flex align-items-center gap-2 overview">
+              <img src="/img/w.png" alt="w" />
+              <div class="d-flex flex-column">
+                <p class="m-0">Allowlist</p>
+                <div class="fs-3 fw-bold" style="color: rgb(85, 207, 120)">
+                  05
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex align-items-center gap-2 overview">
+              <img src="/img/b.png" alt="b" />
+              <div class="d-flex flex-column">
+                <p class="m-0">Blocklist</p>
+                <div class="fs-3 fw-bold" style="color: rgb(240, 47, 56)">
+                  02
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex align-items-center gap-2 overview">
+              <img src="/img/f.png" alt="f" />
+              <div class="d-flex flex-column">
+                <p class="m-0">User Defined Issues</p>
+                <div class="fs-3 fw-bold" style="color: rgb(30, 45, 96)">
+                  10
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row-py-2 mt-1">
+            <div>
+              <ul
+                class="nav nav-pills d-flex gap-2 mb-3"
+                id="pills-tab"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="pills-summary-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-summary"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-summary"
+                    aria-selected="true"
+                  >
+                    <img src="/img/summaryIcon.png" alt="summary" /> Summary
+                  </button>
+                </li>
+                <li class="nav-item dropdown" role="presentation">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    id="pills-SBOM-tab"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    ><img src="/img/SBOMicon.png" alt="SBOMicon" /> SBOM</a
+                  >
+                  <ul class="dropdown-menu" aria-labelledby="pills-SBOM-tab">
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-SBOM-components-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-SBOM-components"
+                        role="tab"
+                        aria-controls="pills-SBOM-components"
+                        aria-selected="false"
+                        >components</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-SBOM-standards-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-SBOM-standards"
+                        role="tab"
+                        aria-controls="pills-SBOM-standards"
+                        aria-selected="false"
+                        >standards</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown" role="presentation">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    id="pills-3layer-tab"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    ><img src="/img/3layericon.png" alt="3layericon" /> 3-Layer
+                    Vuln.&lpar;10&rpar;</a
+                  >
+                  <ul
+                    class="dropdown-menu text-center"
+                    aria-labelledby="pills-3layer-tab"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-3layer-func-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-3layer-func"
+                        role="tab"
+                        aria-controls="pills-3layer-func"
+                        aria-selected="false"
+                        >Func. Vuln</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-3layer-file-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-3layer-file"
+                        role="tab"
+                        aria-controls="pills-3layer-file"
+                        aria-selected="false"
+                        >File Vuln</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-3layer-comp-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-3layer-comp"
+                        role="tab"
+                        aria-controls="pills-3layer-comp"
+                        aria-selected="false"
+                        >Comp. Vuln</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown" role="presentation">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    id="pills-3layer-tab"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    ><img src="/img/patchicon.png" alt="3layericon" /> Patch
+                    Recommendations</a
+                  >
+                  <ul
+                    class="dropdown-menu text-center"
+                    aria-labelledby="pills-patch-tab"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-patch-LLP-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-patch-LLP"
+                        role="tab"
+                        aria-controls="pills-patch-LLP"
+                        aria-selected="false"
+                        >By LLP</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-patch-severity-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-patch-severity"
+                        role="tab"
+                        aria-controls="pills-patch-severity"
+                        aria-selected="false"
+                        >By Severity</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown" role="presentation">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    id="pills-license-tab"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    ><img src="/img/licenseIcon.png" alt="license Icon" />
+                    Licenses</a
+                  >
+                  <ul
+                    class="dropdown-menu text-center"
+                    aria-labelledby="pills-license-tab"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-license-license-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-license-license"
+                        role="tab"
+                        aria-controls="pills-license-license"
+                        aria-selected="false"
+                        >Licenses</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-license-issues-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-license-issues"
+                        role="tab"
+                        aria-controls="pills-license-issues"
+                        aria-selected="false"
+                        >License Issues</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-license-conflicts-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-license-conflicts"
+                        role="tab"
+                        aria-controls="pills-license-conflicts"
+                        aria-selected="false"
+                        >License Conflicts</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown" role="presentation">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    id="pills-userissues-tab"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    ><img src="/img/issueicon.png" alt="issues Icon" /> User
+                    Defined Issues(0)
+                  </a>
+                  <ul
+                    class="dropdown-menu text-center"
+                    aria-labelledby="pills-issues-tab"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        id="pills-issue-issue-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-issue-issue"
+                        role="tab"
+                        aria-controls="pills-issue-issue"
+                        aria-selected="false"
+                        >User issues</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-setting-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-setting"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-setting"
+                    aria-selected="false"
+                  >
+                    <img src="/img/settingicon.png" alt="setting" />
+                    Project Settings
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+              <!-- Summary content start -->
+              <div
+                class="tab-pane fade show active"
+                id="pills-summary"
+                role="tabpanel"
+                aria-labelledby="pills-summary-tab"
+                tabindex="0"
+              >
+                <div class="row">
+                  <div class="col">
+                    <div class="fw-bold fs-5 text-nowrap text-center">
+                      Components
+                    </div>
+                    <div class="mt-3 text-center">
+                      <img
+                        src="/img/componentGraph.png"
+                        alt="component graph"
+                      />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="fw-bold fs-5 text-nowrap text-center">
+                      3-layer Vuln.
+                    </div>
+                    <div class="mt-3 text-center">
+                      <img src="/img/layerGraph.png" alt="layer graph" />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="fw-bold fs-5 text-nowrap text-center">
+                      license
+                    </div>
+                    <div class="mt-3 text-center">
+                      <img src="/img/licenseGraph.png" alt="license graph" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row py-2 mt-4">
+                  <div class="col-12 col-lg-6">
+                    <div class="row py-2 mb-2">
+                      <div class="col-12 col-sm-6">
+                        <div
+                          class="d-flex justify-content-center align-items-center rounded"
+                          style="
+                            background-color: rgb(251, 246, 182);
+                            height: 120px;
+                          "
+                        >
+                          <div
+                            class="bg-light py-1 px-2"
+                            style="font-size: 12px"
+                          >
+                            <span class="fw-bold">Developed Code</span> 88.5%
+                          </div>
+                        </div>
+                        <div class="mt-2 d-flex justify-content-between">
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(251, 246, 182);
+                              "
+                            ></div>
+                            <div style="font-size: 12px">
+                              <span class="fw-bold my-0 text-nowrap"
+                                >Created Code</span
+                              >
+                              <br />
+                              100%
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(251, 246, 182);
+                              "
+                            ></div>
+                            <div style="font-size: 12px">
+                              <span class="fw-bold my-0 text-nowrap"
+                                >Created Code</span
+                              >
+                              <br />
+                              100%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div
+                          class="d-flex justify-content-center align-items-center rounded"
+                          style="
+                            background-color: rgb(251, 246, 182);
+                            height: 120px;
+                          "
+                        >
+                          <div
+                            class="col"
+                            style="height: 100%; width: 50%"
+                          ></div>
+                          <div
+                            class="col rounded-end"
+                            style="
+                              height: 100%;
+                              width: 50%;
+                              background-color: rgb(237, 230, 158);
+                            "
+                          ></div>
+                        </div>
+                        <div class="mt-2 d-flex justify-content-between">
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(251, 246, 182);
+                              "
+                            ></div>
+                            <div style="font-size: 12px">
+                              <span class="fw-bold my-0 text-nowrap"
+                                >User defined comp
+                              </span>
+                              <br />
+                              N / A
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(251, 246, 182);
+                              "
+                            ></div>
+                            <div style="font-size: 12px">
+                              <span class="fw-bold my-0 text-nowrap"
+                                >Function Comp</span
+                              >
+                              <br />
+                              N / A
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row py-2 mb-2">
+                      <div class="col-12 col-sm-6">
+                        <div
+                          class="d-flex justify-content-center align-items-center rounded"
+                          style="
+                            background-color: rgb(179, 223, 196);
+                            height: 120px;
+                          "
+                        >
+                          <div
+                            class="bg-light py-1 px-2"
+                            style="font-size: 12px"
+                          >
+                            <span class="fw-bold">Developed Code</span> 11.5%
+                          </div>
+                        </div>
+                        <div class="mt-2 d-flex justify-content-between">
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(179, 223, 196);
+                              "
+                            ></div>
+                            <div style="font-size: 12px">
+                              <span class="fw-bold my-0 text-nowrap"
+                                >Full Copy</span
+                              >
+                              <br />
+                              0%
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(179, 223, 196);
+                              "
+                            ></div>
+                            <div style="font-size: 12px">
+                              <span class="fw-bold my-0 text-nowrap"
+                                >Partial Copy Code</span
+                              >
+                              <br />
+                              100%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div
+                          class="d-flex justify-content-center align-items-center rounded"
+                          style="
+                            background-color: rgb(179, 223, 196);
+                            height: 120px;
+                          "
+                        ></div>
+                        <div class="mt-2 d-flex justify-content-between">
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(179, 223, 196);
+                              "
+                            ></div>
+                            <div class="fw-bold" style="font-size: 12px">
+                              100% Match File Comp.0
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-start gap-1">
+                            <div
+                              style="
+                                height: 10px;
+                                width: 10px;
+                                background: rgb(179, 223, 196);
+                              "
+                            ></div>
+                            <div class="fw-bold" style="font-size: 12px">
+                              Partial Matech File Comp.0
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row py-2 mb-2">
+                      <div class="col-12 col-sm-6">
+                        <div
+                          class="d-flex justify-content-center align-items-center rounded"
+                          style="
+                            background-color: rgb(165, 195, 221);
+                            height: 120px;
+                          "
+                        >
+                          <div
+                            class="bg-light py-1 px-2"
+                            style="font-size: 12px"
+                          >
+                            <span class="fw-bold">Developed Code</span> 88.5%
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                        <div
+                          class="d-flex justify-content-center align-items-center rounded"
+                          style="
+                            background-color: rgb(165, 195, 221);
+                            height: 120px;
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6 px-3">
+                    <div class="d-flex mt-2 justify-content-between fw-bold">
+                      <div>3-layer vulnerability</div>
+                      <div>10</div>
+                    </div>
+                    <div class="div my-3 d-flex gap-2 justify-content-between">
+                      <div>Function Vulnerability</div>
+                      <div
+                        class="d-flex gap-2"
+                        style="color: rgb(253, 253, 253)"
+                      >
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                      </div>
+                    </div>
+                    <div class="div my-3 d-flex gap-2 justify-content-between">
+                      <div>Function Vulnerability</div>
+                      <div
+                        class="d-flex gap-2"
+                        style="color: rgb(253, 253, 253)"
+                      >
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                      </div>
+                    </div>
+                    <div class="div my-3 d-flex gap-2 justify-content-between">
+                      <div>File Vulnerability</div>
+                      <div
+                        class="d-flex gap-2"
+                        style="color: rgb(253, 253, 253)"
+                      >
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(211, 1, 5)"
+                        >
+                          2
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(215, 65, 6)"
+                        >
+                          3
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(245, 169, 14)"
+                        >
+                          5
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-5 justify-content-between fw-bold">
+                      <div>User Defined Vuln.</div>
+                      <div>0</div>
+                    </div>
+                    <div class="div my-3 d-flex gap-2 justify-content-end">
+                      <div
+                        class="d-flex gap-2"
+                        style="color: rgb(253, 253, 253)"
+                      >
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-5 justify-content-between fw-bold">
+                      <div>license Issues</div>
+                      <div>4</div>
+                    </div>
+                    <div class="div my-3 d-flex gap-2 justify-content-end">
+                      <div
+                        class="d-flex gap-2"
+                        style="color: rgb(253, 253, 253)"
+                      >
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(253, 202, 21)"
+                        >
+                          4
+                        </div>
+                        <div
+                          class="py-1 px-3 rounded"
+                          style="background: rgb(225, 225, 225)"
+                        >
+                          0
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Summary content end -->
+              <!-- SBOM content start -->
+              <div
+                class="tab-pane fade show active"
+                id="pills-SBOM"
+                role="tabpanel"
+                aria-labelledby="pills-SBOM-tab"
+                tabindex="0"
+              ></div>
+              <!-- SBOM content end -->
+              <!-- SBOM component content start -->
+              <div
+                class="tab-pane fade"
+                id="pills-SBOM-components"
+                role="tabpanel"
+                aria-labelledby="pills-SBOM-components-tab"
+                tabindex="0"
+              >
+                <div class="row py-2 my-1">
+                  <div class="col d-flex">
+                    <div
+                      class="py-2 px-3 rounded-start text-light"
+                      style="background: rgb(30, 45, 96)"
+                    >
+                      Matched File
+                    </div>
+                    <div
+                      class="py-2 px-3 rounded-end"
+                      style="background: rgb(224, 226, 238)"
+                    >
+                      Matched Lib
+                    </div>
+                  </div>
+                </div>
+                <div class="row py-2 mt-4">
+                  <div class="col-12 col-sm-6">
+                    <div class="fw-bold">File Matching Components</div>
+                  </div>
+                  <div
+                    class="col-12 col-sm-6 mt-sm-0 mt-2 d-flex justify-content-end gap-2"
+                  >
+                    <div class="select-icon">
+                      <select
+                        class="form-select text-dark"
+                        aria-label=" label select example"
+                      >
+                        <option value="1">Filter</option>
+                        <option value="2">Option 1</option>
+                        <option value="3">Option 2</option>
+                      </select>
+                    </div>
+                    <div class="position-relative">
+                      <i
+                        class="fa-solid fa-magnifying-glass position-absolute"
+                        style="top: 10px; left: 10px"
+                      ></i>
+                      <input
+                        class="form-control me-2 ps-5"
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row py-2 table-responsive">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th class="text-nowrap">No</th>
+                        <th class="text-nowrap">Policy</th>
+                        <th class="text-nowrap">
+                          OSS <br />
+                          Components
+                        </th>
+                        <th class="text-nowrap">Version</th>
+                        <th class="text-nowrap">License(s)</th>
+                        <th class="text-nowrap">
+                          Latest <br />
+                          Version
+                        </th>
+                        <th class="text-nowrap">
+                          Latest Version <br />
+                          of License
+                        </th>
+                        <th class="text-nowrap">Vulnerability</th>
+                        <th class="text-nowrap">Patch</th>
+                        <th class="text-nowrap">
+                          Matching <br />
+                          Rate(%)
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>zookeeper</td>
+                        <td>release-3.8.0-0</td>
+                        <td>Apache License 2.0</td>
+                        <td>release-3.8.1</td>
+                        <td>Apache License 2.0</td>
+                        <td>
+                          <span
+                            class="py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                          <span
+                            class="ms-1 py-0 px-2 rounded text-light"
+                            style="background: rgb(225, 225, 225)"
+                            >0</span
+                          >
+                        </td>
+                        <td>-</td>
+                        <td>93.82%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div>Showing 1 to 8 of 50 entries</div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- SBOM component content end -->
+              <!-- SBOM standard content start -->
+              <div
+                class="tab-pane fade"
+                id="pills-SBOM-standards"
+                role="tabpanel"
+                aria-labelledby="pills-SBOM-standards-tab"
+                tabindex="0"
+              >
+                <div class="row py-2 my-1">
+                  <div class="col d-flex">
+                    <div
+                      class="py-2 px-3 rounded-start text-light"
+                      style="background: rgb(30, 45, 96)"
+                    >
+                      Labrador to CycloneDX
+                    </div>
+                    <div
+                      class="py-2 px-3 rounded-end"
+                      style="background: rgb(224, 226, 238)"
+                    >
+                      Labrador SPDX
+                    </div>
+                  </div>
+                </div>
+                <div class="py-2 mt-3 bg-light rounded">
+                  <div class="py-2 mt-3 d-flex justify-content-between">
+                    <div class="fw-bold fs-5">Labrador to CycloneDX</div>
+                    <div class="d-flex gap-2">
+                      <button
+                        class="btn"
+                        style="background: rgb(225, 225, 225)"
+                      >
+                        Preview
+                      </button>
+                      <button
+                        class="btn"
+                        style="background: rgb(225, 225, 225)"
+                      >
+                        Download <i class="ri-arrow-down-s-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <form action="">
+                    <div class="py-2 px-3 border border-1 rounded">
+                      <div class="fs-5 fw-bold">Component Info</div>
+                      <div
+                        class="py-2 d-flex flex-column flex-sm-row gap-1 gap-sm-3"
+                      >
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="type" class="fw-bold">Type</label>
+                          <select
+                            id="type"
+                            class="form-select form-select-lg mt-2"
+                            aria-label="Default select example"
+                          >
+                            <option selected>Select</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="author" class="py-1 fw-bold"
+                            >Author</label
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id="author"
+                            placeholder="Enter Author"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="py-2 d-flex flex-column flex-sm-row gap-1 gap-sm-3"
+                      >
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="compName" class="py-1 fw-bold"
+                            >Name</label
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id="compName"
+                            placeholder="Enter Name"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="version" class="py-1 fw-bold"
+                            >Version</label
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id="version"
+                            placeholder="Enter Version"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="license" class="py-1 fw-bold"
+                            >Licensename</label
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id="license"
+                            placeholder="Enter Licensname"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="py-2 px-3 mt-4 border border-1 rounded">
+                      <div class="fs-5 fw-bold">Manufacturer Info</div>
+                      <div
+                        class="py-2 d-flex flex-column flex-sm-row gap-1 gap-sm-3"
+                      >
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="manName" class="py-1 fw-bold">Name</label>
+                          <input
+                            type="text"
+                            name=""
+                            id="manName"
+                            placeholder="Enter Name"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="url" class="py-1 fw-bold">Url</label>
+                          <input
+                            type="text"
+                            name=""
+                            id="url"
+                            placeholder="Enter Url"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="py-2 d-flex flex-column flex-sm-row gap-1 gap-sm-3"
+                      >
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="contactName" class="py-1 fw-bold"
+                            >Contact Name</label
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id="contactName"
+                            placeholder="Enter Contact Name"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="contactEmail" class="py-1 fw-bold"
+                            >Email</label
+                          >
+                          <input
+                            type="email"
+                            name=""
+                            id="contactEmail"
+                            placeholder="Enter Email"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="contactPhNo" class="py-1 fw-bold"
+                            >Phone Number</label
+                          >
+                          <input
+                            type="tel"
+                            name=""
+                            id="contactPhNo"
+                            placeholder="Enter Phone Number"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="py-2 px-3 mt-4 border border-1 rounded">
+                      <div class="fs-5 fw-bold">Supplier Info</div>
+                      <div
+                        class="py-2 d-flex flex-column flex-sm-row gap-1 gap-sm-3"
+                      >
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="supName" class="py-1 fw-bold">Name</label>
+                          <input
+                            type="text"
+                            name=""
+                            id="supName"
+                            placeholder="Enter Name"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="supUrl" class="py-1 fw-bold">Url</label>
+                          <input
+                            type="text"
+                            name=""
+                            id="supUrl"
+                            placeholder="Enter Url"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="py-2 d-flex flex-column flex-sm-row gap-1 gap-sm-3"
+                      >
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="supContactName" class="py-1 fw-bold"
+                            >Contact Name</label
+                          >
+                          <input
+                            type="text"
+                            name=""
+                            id="supContactName"
+                            placeholder="Enter Contact Name"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="supEmail" class="py-1 fw-bold"
+                            >Email</label
+                          >
+                          <input
+                            type="email"
+                            name=""
+                            id="supEmail"
+                            placeholder="Enter Email"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                        <div class="flex-fill form-group py-1 py-md-2">
+                          <label for="supPhNo" class="py-1 fw-bold"
+                            >Phone Number</label
+                          >
+                          <input
+                            type="tel"
+                            name=""
+                            id="supPhNo"
+                            placeholder="Enter Phone Number"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="py-2 mt-3 text-center">
+                      <button
+                        class="btn btn-lg px-5 mx-auto text-light"
+                        style="background: rgb(30, 45, 96)"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- SBOM standard content end -->
+              <!-- 3layer Func content start -->
+              <div
+                class="tab-pane fade"
+                id="pills-3layer-func"
+                role="tabpanel"
+                aria-labelledby="pills-3layer-func-tab"
+                tabindex="0"
+              >
+                <div class="div py-2 mt-4 d-flex justify-content-between">
+                  <div class="fs-5 fw-bold">Function Vulnerability</div>
+                  <button
+                    class="btn text-light"
+                    style="background: rgb(30, 45, 96)"
+                  >
+                    <i class="fa-regular fa-rectangle-list"></i> Whitelist
+                    &lpar;0&rpar;
+                  </button>
+                </div>
+                <div class="py-2 mt-2 table-responsive">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th>No</th>
+                        <th>Policy</th>
+                        <th>Function</th>
+                        <th>File</th>
+                        <th>Score</th>
+                        <th>CVE ID</th>
+                        <th>CWE ID</th>
+                        <th>Total Lines</th>
+                        <th>Components</th>
+                        <th>Patch</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ref_pic_list_struct</td>
+                        <td>evc_psc</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-47470</td>
+                        <td>CWE-787</td>
+                        <td>27 - 50</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ff_vorbis_floor1_list</td>
+                        <td>vorbise</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            5.9
+                          </div>
+                        </td>
+                        <td>CVE-2011-3893</td>
+                        <td>CWE-125</td>
+                        <td>197 - 219</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ref_pic_list_struct</td>
+                        <td>evc_psc</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-47470</td>
+                        <td>CWE-787</td>
+                        <td>27 - 50</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ff_vorbis_floor1_list</td>
+                        <td>vorbise</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            5.9
+                          </div>
+                        </td>
+                        <td>CVE-2011-3893</td>
+                        <td>CWE-125</td>
+                        <td>197 - 219</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ref_pic_list_struct</td>
+                        <td>evc_psc</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-47470</td>
+                        <td>CWE-787</td>
+                        <td>27 - 50</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ff_vorbis_floor1_list</td>
+                        <td>vorbise</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            5.9
+                          </div>
+                        </td>
+                        <td>CVE-2011-3893</td>
+                        <td>CWE-125</td>
+                        <td>197 - 219</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ref_pic_list_struct</td>
+                        <td>evc_psc</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-47470</td>
+                        <td>CWE-787</td>
+                        <td>27 - 50</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>ff_vorbis_floor1_list</td>
+                        <td>vorbise</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center"
+                            style="background-color: rgb(245, 169, 14)"
+                          >
+                            5.9
+                          </div>
+                        </td>
+                        <td>CVE-2011-3893</td>
+                        <td>CWE-125</td>
+                        <td>197 - 219</td>
+                        <td>FFmpeg</td>
+                        <td>
+                          <button
+                            class="btn py-0"
+                            style="background: rgb(225, 225, 225)"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div style="font-size: 12px">
+                    Showing 1 to 8 of 50 entries
+                  </div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- 3layer Func content end -->
+              <!-- 3layer component content start -->
+              <div
+                class="tab-pane fade"
+                id="pills-3layer-comp"
+                role="tabpanel"
+                aria-labelledby="pills-3layer-comp-tab"
+                tabindex="0"
+              >
+                <div class="row py-2 my-1">
+                  <div class="col d-flex">
+                    <div
+                      class="py-2 px-3 rounded-start text-light"
+                      style="background: rgb(30, 45, 96)"
+                    >
+                      Matched File
+                    </div>
+                    <div
+                      class="py-2 px-3 rounded-end"
+                      style="background: rgb(224, 226, 238)"
+                    >
+                      Matched Lib
+                    </div>
+                  </div>
+                </div>
+                <div class="row py-2 mt-4">
+                  <div class="col-12 col-sm-6">
+                    <div class="fw-bold">
+                      Library Matching Components Vulnerabilities
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 col-sm-6 mt-sm-0 mt-2 d-flex justify-content-end gap-2"
+                  >
+                    <div class="select-icon">
+                      <select
+                        class="form-select text-dark"
+                        aria-label=" label select example"
+                      >
+                        <option value="1">Filter</option>
+                        <option value="2">Option 1</option>
+                        <option value="3">Option 2</option>
+                      </select>
+                    </div>
+                    <button
+                      class="btn text-light"
+                      style="background: rgb(30, 45, 96)"
+                    >
+                      <i class="fa-regular fa-rectangle-list"></i> Whitelist
+                      &lpar;0&rpar;
+                    </button>
+                  </div>
+                </div>
+                <div class="py-2 mt-2 table-responsive">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th>No</th>
+                        <th>Policy</th>
+                        <th>Library Components</th>
+                        <th>Version</th>
+                        <th>Latest Version</th>
+                        <th>Score</th>
+                        <th>CVE ID</th>
+                        <th>CWE ID</th>
+                        <th>Patch</th>
+                        <th>Occurences&lpar;s&rpar;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>2</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: #f02f38">No Safe Version Info</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: #f02f38">No Safe Version Info</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>4</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: #f02f38">No Safe Version Info</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>9</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>10</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>2</td>
+                      </tr>
+                      <tr>
+                        <td>11</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: #f02f38">No Safe Version Info</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>12</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <td>13</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: #f02f38">No Safe Version Info</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>14</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>4</td>
+                      </tr>
+                      <tr>
+                        <td>15</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: rgb(85, 207, 120)">1.1.10.1</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>16</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>snappy-java</td>
+                        <td>1.1.7.7</td>
+                        <td>1.1.10.3</td>
+                        <td>
+                          <div
+                            class="text-light rounded text-center px-2"
+                            style="
+                              background-color: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>CVE-2023-34453</td>
+                        <td>CWE-190</td>
+                        <td style="color: #f02f38">No Safe Version Info</td>
+                        <td>7</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div style="font-size: 12px">
+                    Showing 1 to 16 of 50 entries
+                  </div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- 3layer component content end -->
+              <!-- Patch content start -->
+
+              <!-- Patch LLP start -->
+              <div
+                class="tab-pane fade"
+                id="pills-patch-LLP"
+                role="tabpanel"
+                aria-labelledby="pills-patch-LLP-tab"
+                tabindex="0"
+              >
+                <div class="py-2 mt-3 fs-5 fw-bold">
+                  By LLP (Labrador patch priority)
+                </div>
+                <!-- <div class="py-2 mt-3 fs-5 fw-bold text-end"></div> -->
+                <div class="table-responsive py-2 mt-4">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Removable Vuln.</th>
+                      </tr>
+                      <tr>
+                        <th>No</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Patch Target</th>
+                        <th>Patch Recommend</th>
+                        <th class="d-flex justify-content-between">
+                          <div
+                            class="px-3 text-light"
+                            style="background: #f02f38; border-radius: 15px"
+                          >
+                            H
+                          </div>
+                          <div
+                            class="px-3 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                            "
+                          >
+                            M
+                          </div>
+                          <div
+                            class="px-3 text-light"
+                            style="
+                              background: rgb(253, 202, 21);
+                              border-radius: 15px;
+                            "
+                          >
+                            L
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jetty:Http Utility</td>
+                        <td>
+                          9.4.53.v20231009 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 5
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jakson-databind</td>
+                        <td>
+                          2.13.4.2 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 3
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jetty:Http Utility</td>
+                        <td>
+                          9.4.53.v20231009 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 5
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jakson-databind</td>
+                        <td>
+                          2.13.4.2 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 3
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jetty:Http Utility</td>
+                        <td>
+                          9.4.53.v20231009 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 5
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jakson-databind</td>
+                        <td>
+                          2.13.4.2 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 3
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jetty:Http Utility</td>
+                        <td>
+                          9.4.53.v20231009 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 5
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>Library Matching Components</td>
+                        <td>Jakson-databind</td>
+                        <td>
+                          2.13.4.2 version update
+                          <button class="btn py-0">View</button>
+                        </td>
+                        <td class="d-flex justify-content-between">
+                          <div
+                            class="flex-fill text-center"
+                            style="color: #f02f38"
+                          >
+                            -
+                          </div>
+                          <div
+                            class="flex-fill d-flex justify-content-center text-center align-items-center"
+                            style="color: rgb(245, 169, 14)"
+                          >
+                            <i class="ri-arrow-down-s-fill"></i> 3
+                          </div>
+                          <div
+                            class="flex-fill text-center"
+                            style="color: rgb(253, 202, 21)"
+                          >
+                            -
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div style="font-size: 12px">
+                    Showing 1 to 8 of 50 entries
+                  </div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- Patch LLP ends -->
+              <!-- Patch Severity start -->
+              <div
+                class="tab-pane fade"
+                id="pills-patch-severity"
+                role="tabpanel"
+                aria-labelledby="pills-patch-severity-tab"
+                tabindex="0"
+              >
+                <div class="py-2 mt-3 fs-5 fw-bold">By Severity</div>
+                <div class="table-responsive py-2 mt-4">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr class="text-center">
+                        <div class="fs-5 fw-bold text-center">
+                          Occurences(s)
+                        </div>
+                      </tr>
+                      <tr>
+                        <th>No</th>
+                        <th>Type</th>
+                        <th>Patch Target</th>
+                        <th>CVSS v2</th>
+                        <th>CVSS v3</th>
+                        <th>LPP</th>
+                        <th>Func.</th>
+                        <th>Files</th>
+                        <th>Comp.</th>
+                        <th>Patch</th>
+                        <th>Patch</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2020-15250</td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(253, 202, 21);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            5.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2021-31684</td>
+                        <td>
+                          <div
+                            class="px-3 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(225, 225, 225);
+                              width: max-content;
+                            "
+                          >
+                            0
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(211, 1, 5);
+                              width: max-content;
+                            "
+                          >
+                            7.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2020-15250</td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(253, 202, 21);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            5.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2021-31684</td>
+                        <td>
+                          <div
+                            class="px-3 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(225, 225, 225);
+                              width: max-content;
+                            "
+                          >
+                            0
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(211, 1, 5);
+                              width: max-content;
+                            "
+                          >
+                            7.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2020-15250</td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(253, 202, 21);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            5.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2021-31684</td>
+                        <td>
+                          <div
+                            class="px-3 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(225, 225, 225);
+                              width: max-content;
+                            "
+                          >
+                            0
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(211, 1, 5);
+                              width: max-content;
+                            "
+                          >
+                            7.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2020-15250</td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(253, 202, 21);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            5.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>CVE-2021-31684</td>
+                        <td>
+                          <div
+                            class="px-3 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(225, 225, 225);
+                              width: max-content;
+                            "
+                          >
+                            0
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(211, 1, 5);
+                              width: max-content;
+                            "
+                          >
+                            7.5
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            class="px-2 text-light"
+                            style="
+                              border-radius: 15px;
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                            "
+                          >
+                            6.5
+                          </div>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td style="color: #f02f38">Comp.version update</td>
+                        <td><button class="btn py-0">View</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div style="font-size: 12px">
+                    Showing 1 to 8 of 50 entries
+                  </div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- Patch Severity end -->
+              <!-- Patch content end -->
+              <!-- Licenses content start -->
+              <!-- License start -->
+              <div
+                class="tab-pane fade"
+                id="pills-license-license"
+                role="tabpanel"
+                aria-labelledby="pills-license-license-tab"
+                tabindex="0"
+              >
+                <div class="py-2 mt-3 d-flex justify-content-between">
+                  <div class="fs-5 fw-bold">Licenses</div>
+                  <button class="btn" style="background: rgb(225, 225, 225)">
+                    Open Source Notice
+                  </button>
+                </div>
+                <div class="table-responsive py-2 mt-3">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Policy</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Matched Components</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div style="font-size: 12px">
+                    Showing 1 to 8 of 50 entries
+                  </div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- License end -->
+              <!-- License issues start -->
+              <div
+                class="tab-pane fade"
+                id="pills-license-issues"
+                role="tabpanel"
+                aria-labelledby="pills-license-issues-tab"
+                tabindex="0"
+              >
+                <div class="py-2 mt-3 d-flex justify-content-between">
+                  <div class="fs-5 fw-bold">License Issues</div>
+                  <button class="btn" style="background: rgb(225, 225, 225)">
+                    Open Source Notice
+                  </button>
+                </div>
+                <div class="table-responsive py-2 mt-3">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Policy</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Matched Components</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>
+                          <img src="/img/policyicon.png" alt="" width="20px" />
+                        </td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development and Distribution License 1.0</td>
+                        <td>1</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td><i class="ri-shield-check-line"></i></td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              border-radius: 15px;
+                              width: max-content;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Community License v1.0</td>
+                        <td>3</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div style="font-size: 12px">
+                    Showing 1 to 8 of 50 entries
+                  </div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- License issues end -->
+              <!-- License conflicts start -->
+              <div
+                class="tab-pane fade"
+                id="pills-license-conflicts"
+                role="tabpanel"
+                aria-labelledby="pills-license-conflicts-tab"
+                tabindex="0"
+              >
+                <div class="py-2 mt-3 d-flex justify-content-between">
+                  <div class="fs-5 fw-bold">License Conflicts</div>
+                  <button class="btn" style="background: rgb(225, 225, 225)">
+                    Unknown List
+                  </button>
+                </div>
+                <div class="py-2 mt-3 table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th rowspan="2">No</th>
+                        <th colspan="3">Based License</th>
+                        <th colspan="3">Conflicted License</th>
+                        <th rowspan="2" Details>Details</th>
+                      </tr>
+                      <tr>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Matched Components</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Matched Components</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development...</td>
+                        <td>1</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common development...</td>
+                        <td>8</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="20px"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>3</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>5</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="25px"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development...</td>
+                        <td>1</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common development...</td>
+                        <td>8</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="20px"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>3</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>5</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="25px"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development...</td>
+                        <td>1</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common development...</td>
+                        <td>8</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="20px"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>3</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>5</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="25px"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common Development...</td>
+                        <td>1</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Common development...</td>
+                        <td>8</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="20px"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: rgb(245, 169, 14);
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Permissive
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>3</td>
+                        <td>
+                          <div
+                            class="px-1 text-light"
+                            style="
+                              background: #f02f38;
+                              width: max-content;
+                              border-radius: 15px;
+                            "
+                          >
+                            Protective
+                          </div>
+                        </td>
+                        <td>Educational Communit...</td>
+                        <td>5</td>
+                        <td>
+                          <img
+                            src="/img/detailsicon.png"
+                            alt="detailsicon"
+                            width="25px"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between text-gray">
+                  <div style="font-size: 12px">
+                    Showing 1 to 8 of 50 entries
+                  </div>
+                  <div class="d-flex gap-3 align-items-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                    <div
+                      class="px-2 rounded"
+                      style="background: rgb(225, 225, 225)"
+                    >
+                      1
+                    </div>
+                    <div>2</div>
+                    <div>3</div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- License conflicts end -->
+              <!-- Licenses content end -->
+              <!-- Project setting start -->
+              <div
+                class="tab-pane fade"
+                id="pills-setting"
+                role="tabpanel"
+                aria-labelledby="pills-setting-tab"
+                tabindex="0"
+              >
+                <div class="fs-5 fw-bold py-2 mt-3">Project Settings</div>
+                <div class="py-2 d-flex gap-2">
+                  <div class="fw-bold" style="width: 100px">Created:</div>
+                  <div>04-17-2024, 16:20</div>
+                </div>
+                <div class="py-2 d-flex gap-2">
+                  <div class="fw-bold" style="width: 100px">Created By:</div>
+                  <div>Roger Neal</div>
+                </div>
+                <div class="div p-2 mt-2">
+                  <form action="">
+                    <div class="form-group form-group-lg">
+                      <label for="Name" class="fw-bold mt-2"
+                        >Project Name *</label
+                      >
+                      <input
+                        type="text"
+                        id="Name"
+                        class="form-control mt-1 form-control-lg py-2"
+                        placeholder="Lorem Ipsum"
+                      />
+                    </div>
+                    <div class="form-group form-group-lg">
+                      <label for="key" class="fw-bold mt-2">Project Key</label>
+                      <div class="input-group mb-3">
+                        <input
+                          type="text"
+                          class="form-control form-control-lg"
+                          placeholder="Username"
+                          aria-label="Username"
+                          aria-describedby="basic-addon1"
+                        />
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="ri-file-copy-line"></i> copy</span
+                        >
+                      </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                      <label for="desc" class="fw-bold mt-2"
+                        >Project Description</label
+                      >
+                      <textarea
+                        id="desc"
+                        class="form-control mt-1 form-control-lg py-2"
+                        placeholder="Project Description"
+                      ></textarea>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- Project setting end -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
