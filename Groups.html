@@ -10,11 +10,11 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <scripthr
+    <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
-    ></scripthr>
+    ></script>
     <!-- Option 1: Include in HTML
     <link
       rel="stylesheet"
@@ -32,9 +32,6 @@
       rel="stylesheet"
     />
     <style>
-      .w-90 {
-        width: 90%;
-      }
       .sidebar {
         display: none;
       }
@@ -80,27 +77,6 @@
           width: 50%;
         }
       }
-      @media (min-width: 1224px) {
-        .accordionHeight {
-          height: 60vh;
-        }
-      }
-
-      .accordion-button::before {
-        content: url(/img/rightArrow.png); /* Unicode for right-pointing black arrow */
-        font-size: 1.25rem;
-        color: #6c757d;
-        margin-right: 0.5rem; /* Add some space */
-        transition: transform 0.3s ease-in-out; /* Add transition effect */
-      }
-
-      /* Rotate the arrow icon when accordion is expanded */
-      .accordion-button[aria-expanded="true"]::before {
-        transform: rotate(90deg);
-      }
-      .accordion-button::after {
-        display: none;
-      }
     </style>
   </head>
   <body>
@@ -115,7 +91,7 @@
               <img src="/img/logoWhite.png" alt="logo" />
             </div>
           </div>
-          <div class="row">
+          <a href="/dashboard.html" class="text-decoration-none text-light row">
             <div
               class="col py-2 d-flex align-items-center fs-5"
               style="gap: 8px"
@@ -123,8 +99,12 @@
               <i class="ri-pie-chart-fill me-2"></i>
               Dashboard
             </div>
-          </div>
-          <div class="row mt-2 bg-light rounded" style="color: rgb(30, 45, 96)">
+          </a>
+          <a
+            href="/Groups.html"
+            class="text-decoration-none text-dark row mt-2 bg-light rounded"
+            style="color: rgb(30, 45, 96)"
+          >
             <div
               class="col py-2 d-flex align-items-center fs-5"
               style="gap: 8px"
@@ -132,8 +112,8 @@
               <i class="fa-solid fa-user-group me-2"></i>
               Groups
             </div>
-          </div>
-          <div class="row mt-2">
+          </a>
+          <a href="#" class="text-decoration-none text-light row mt-2">
             <div
               class="col py-2 d-flex align-items-center fs-5"
               style="gap: 8px"
@@ -141,8 +121,8 @@
               <i class="fa-solid fa-user me-2"></i>
               Profile
             </div>
-          </div>
-          <div class="row mt-2">
+          </a>
+          <a href="/SCA.html" class="text-decoration-none text-light row mt-2">
             <div
               class="col py-2 d-flex align-items-center fs-5"
               style="gap: 8px"
@@ -150,17 +130,17 @@
               <i class="ri-shield-check-fill me-2"></i>
               SCA
             </div>
-          </div>
-          <div class="row mt-2">
+          </a>
+          <a href="/SAST.html" class="text-decoration-none text-light row mt-2">
             <div
               class="col py-2 d-flex align-items-center fs-5"
               style="gap: 8px"
             >
-              <i class="ri-shield-check-fill me-2"></i>
+              <i class="ri-file-list-line"></i>
               SAST
             </div>
-          </div>
-          <div class="row mt-2">
+          </a>
+          <a href="#" class="text-decoration-none text-light row mt-2">
             <div
               class="col py-2 d-flex align-items-center fs-5"
               style="gap: 8px"
@@ -168,16 +148,16 @@
               <i class="ri-shield-check-fill me-2"></i>
               Dependency Mapping
             </div>
-          </div>
-          <div class="row mt-2">
+          </a>
+          <a href="#" class="text-decoration-none text-light row mt-2">
             <div
               class="col py-2 d-flex align-items-center fs-5"
               style="gap: 8px"
             >
               <i class="ri-shield-check-fill me-2"></i>
-              Supply Chain defense
+              Supply Chain Defense
             </div>
-          </div>
+          </a>
         </div>
         <div class="col-12 col-md-9 p-3">
           <div class="row">
@@ -220,7 +200,10 @@
                 </div>
                 <div class="offcanvas-body">
                   <!-- Mobile sidebar content start -->
-                  <div class="row">
+                  <a
+                    href="/dashboard.html"
+                    class="row text-decoration-none text-light"
+                  >
                     <div
                       class="col py-2 d-flex align-items-center fs-5"
                       style="gap: 8px"
@@ -228,9 +211,10 @@
                       <i class="ri-pie-chart-fill me-2"></i>
                       Dashboard
                     </div>
-                  </div>
-                  <div
-                    class="row mt-2 bg-light rounded"
+                  </a>
+                  <a
+                    href="/Groups.html"
+                    class="bg-light rounded text-decoration-none row mt-2"
                     style="color: rgb(30, 45, 96)"
                   >
                     <div
@@ -240,8 +224,8 @@
                       <i class="fa-solid fa-user-group me-2"></i>
                       Groups
                     </div>
-                  </div>
-                  <div class="row mt-2">
+                  </a>
+                  <a href="#" class="text-light text-decoration-none row mt-2">
                     <div
                       class="col py-2 d-flex align-items-center fs-5"
                       style="gap: 8px"
@@ -249,8 +233,11 @@
                       <i class="fa-solid fa-user me-2"></i>
                       Profile
                     </div>
-                  </div>
-                  <div class="row mt-2">
+                  </a>
+                  <a
+                    href="/SCA.html"
+                    class="text-light text-decoration-none row mt-2"
+                  >
                     <div
                       class="col py-2 d-flex align-items-center fs-5"
                       style="gap: 8px"
@@ -258,17 +245,20 @@
                       <i class="ri-shield-check-fill me-2"></i>
                       SCA
                     </div>
-                  </div>
-                  <div class="row mt-2">
+                  </a>
+                  <a
+                    href="/SAST.html"
+                    class="text-light text-decoration-none row mt-2"
+                  >
                     <div
                       class="col py-2 d-flex align-items-center fs-5"
                       style="gap: 8px"
                     >
-                      <i class="ri-shield-check-fill me-2"></i>
+                      <i class="ri-file-list-line"></i>
                       SAST
                     </div>
-                  </div>
-                  <div class="row mt-2">
+                  </a>
+                  <a href="#" class="text-light text-decoration-none row mt-2">
                     <div
                       class="col py-2 d-flex align-items-center fs-5"
                       style="gap: 8px"
@@ -276,16 +266,16 @@
                       <i class="ri-shield-check-fill me-2"></i>
                       Dependency Mapping
                     </div>
-                  </div>
-                  <div class="row mt-2">
+                  </a>
+                  <a href="#" class="text-light text-decoration-none row mt-2">
                     <div
                       class="col py-2 d-flex align-items-center fs-5"
                       style="gap: 8px"
                     >
                       <i class="ri-shield-check-fill me-2"></i>
-                      Supply Chain defense
+                      Supply Chain Defense
                     </div>
-                  </div>
+                  </a>
                   <!-- Mobile sidebar content end -->
                 </div>
               </div>
@@ -300,7 +290,7 @@
                 class="btn text-light"
                 style="background: rgb(30, 45, 96)"
               >
-                <i class="fa-solid fa-plus me-1"></i> CREATE NEW GROUP
+                <i class="fa-solid fa-plus me-1"></i> ADD Project
               </button>
               <div class="d-flex align-items-center" style="gap: 5px">
                 <i class="fa-solid fa-bell"></i>
